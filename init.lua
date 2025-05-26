@@ -18,6 +18,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Set up lazy, and load the required folders
 require("lazy").setup({
   { import = "plugins.treesitter" },
+  { import = "plugins" },
 }, {
   change_detection = {
     notify = false,

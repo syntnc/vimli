@@ -1,4 +1,4 @@
-return {
+return { -- Autoformat
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
   cmd = { "ConformInfo" },
@@ -21,7 +21,7 @@ return {
       -- local disable_filetypes = { c = true, cpp = true }
       local disable_filetypes = {}
       return {
-        timeout_ms = 5000,
+        timeout_ms = 500,
         lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
       }
     end,

@@ -9,6 +9,7 @@ opt.signcolumn = "yes"
 opt.laststatus = 3
 opt.showmode = false
 opt.showtabline = 0
+opt.cmdheight = 0
 
 -- Editor behavior
 opt.backup = false
@@ -17,7 +18,7 @@ opt.undofile = true
 opt.splitright = true
 opt.splitbelow = true
 opt.completeopt = { "menu", "menuone", "noselect" }
-opt.updatetime = 500
+opt.updatetime = 1000
 
 -- Line behavior
 opt.tabstop = 4
@@ -32,13 +33,17 @@ opt.wrap = false
 opt.list = true
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
+-- Decrease mapped sequence wait time
+-- Displays which-key popup sooner
+opt.timeoutlen = 300
+
 -- Search
 opt.hlsearch = false
 opt.incsearch = true
 
 if vim.fn.executable("rg") == 1 then
-	vim.o.grepprg = 'rg --vimgrep --files --hidden --follow --glob "!{.git, node_modules}"'
+  vim.o.grepprg = 'rg --vimgrep --files --hidden --follow --glob "!{.git, node_modules}"'
 elseif vim.fn.executable("ag") then
-	vim.o.grepprg = 'ag --nogroup --nocolor --hidden --ignore .git -g ""'
+  vim.o.grepprg = 'ag --nogroup --nocolor --hidden --ignore .git -g ""'
 end
 opt.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }

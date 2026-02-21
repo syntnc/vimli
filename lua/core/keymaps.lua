@@ -19,7 +19,7 @@ map("n", "N", "Nzzzv")
 map("n", "J", "mzJ`z<cmd>delm z<CR>")
 map("n", "gJ", "mzgJ`z<cmd>delm z<CR>")
 
--- Make undo reset the temporary mark
+-- Clear temporary mark on undo
 map("n", "u", "u<cmd>delm z<CR>")
 
 -- Scroll half-page while keeping cursor at the center
@@ -27,17 +27,15 @@ map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
 -- Split navigation
-map("n", "<C-j>", "<C-w><C-j>")
-map("n", "<C-k>", "<C-w><C-k>")
-map("n", "<C-l>", "<C-w><C-l>")
-map("n", "<C-h>", "<C-w><C-h>")
+map("n", "<C-j>", "<C-W><C-J>")
+map("n", "<C-k>", "<C-W><C-K>")
+map("n", "<C-l>", "<C-W><C-L>")
+map("n", "<C-h>", "<C-W><C-H>")
 
 -- Tabs
-map("n", "<leader>tn", "<cmd>tabnew<CR>")
-map("n", "<leader>to", "<cmd>tabonly<CR>")
-map("n", "<leader>tc", "<cmd>tabclose<CR>")
-map("n", "[t", "<cmd>tabprevious<cr>", { desc = "Prev Tab" })
-map("n", "]t", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader>tn", ":tabnew<CR>")
+map("n", "<leader>to", ":tabonly<CR>")
+map("n", "<leader>tc", ":tabclose<CR>")
 
 -- Remove highlights after search
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -52,8 +50,8 @@ map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
 -- Insert newline
-map("n", "gO", "<cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "Add Newline Above" })
-map("n", "go", "<cmd>call append(line('.'),     repeat([''], v:count1))<CR>", { desc = "Add Newline Below" })
+map("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "Add Newline Above" })
+map("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>", { desc = "Add Newline Below" })
 
 -- Commenting
 map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
@@ -62,8 +60,10 @@ map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 -- Quickfix
 map("n", "<leader>M", "<cmd>messages<cr>", { desc = "[M]essages" })
 map("n", "<leader>Q", function()
-	require("utils.toggles").qflist()
+  require("utils.toggles").qflist()
 end)
+-- -- map("n", "<leader>cq", quickfix.add_list)
+-- -- map("n", "<leader>cQ", quickfix.open_list)
 map("n", "[q", "<cmd>try | cprev | catch | silent! clast | catch | endtry<cr>zv")
 map("n", "]q", "<cmd>try | cnext | catch | silent! cfirst | catch | endtry<cr>zv")
 map("n", "[Q", "<cmd>silent! colder<cr>")

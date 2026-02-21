@@ -4,3 +4,8 @@ vim.g.loaded_netrwPlugin = 1
 
 -- Set leader key
 vim.g.mapleader = " "
+
+-- Enable icons
+vim.g.icons_enabled = true
+
+vim.g.picker = "snacks"

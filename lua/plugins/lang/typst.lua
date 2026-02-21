@@ -1,9 +1,17 @@
 return {
+  -- Previewer
+  {
+    "chomosuke/typst-preview.nvim",
+    ft = "typst",
+    version = "1.*",
+    opts = {},
+  },
+
   -- Highlighting and text objects
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "lua" },
+      ensure_installed = { "typst" },
     },
   },
 
@@ -11,7 +19,7 @@ return {
   {
     "mason-org/mason.nvim",
     opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "stylua" })
+      vim.list_extend(opts.ensure_installed, { "tinymist", "typstyle" })
     end,
   },
 
@@ -20,19 +28,11 @@ return {
     "mason-org/mason-lspconfig.nvim",
     opts = {
       servers = {
-        lua_ls = {
+        tinymist = {
           settings = {
-            Lua = {
-              completion = {
-                callSnippet = "Replace",
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              diagnostics = {
-                disable = { "missing-fields" },
-                -- globals = { "vim" },
-              },
-              hint = { enable = true },
-            },
+            formatterMode = "typstyle",
+            exportPdf = "onType",
+            semanticTokens = "disable",
           },
         },
       },
@@ -44,7 +44,7 @@ return {
     "stevearc/conform.nvim",
     opts = function(_, opts)
       opts.formatters_by_ft = vim.tbl_deep_extend("force", opts.formatters_by_ft, {
-        lua = { "stylua" },
+        typst = { "typstyle" },
       })
     end,
   },

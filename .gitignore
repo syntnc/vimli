@@ -42,3 +42,6 @@ lazy-lock.json
 *.x86_64
 *.hex
 
+# Environment
+.direnv/
+.env

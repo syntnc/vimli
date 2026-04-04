@@ -1,0 +1,8 @@
+{
+  "plugins": {
+    "lz.n": {
+      "rev": "2f7e0a010045f8dfbcf6e2f0e41455cd5809b04e",
+      "src": "https://github.com/lumen-oss/lz.n"
+    }
+  }
+}

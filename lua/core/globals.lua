@@ -10,6 +10,7 @@ vim.g.icons_enabled = true
 
 vim.g.picker = "snacks"
 
-_G.plug = function(repo)
-  return string.format("https://github.com/%s", repo)
+_G.plug = function(repo, source)
+  source = source or "github"
+  return "https://" .. source .. ".com/" .. repo
 end

@@ -42,7 +42,6 @@ autocmd("FileType", {
   group = augroup("close_with_q"),
   desc = "Close some filetypes with <q>",
   pattern = {
-    "PlenaryTestPopup",
     "checkhealth",
     "help",
     "lspinfo",
@@ -51,6 +50,7 @@ autocmd("FileType", {
     "neotest-summary",
     "notify",
     "oil",
+    "PlenaryTestPopup",
     "qf",
     "spectre_panel",
     "startuptime",

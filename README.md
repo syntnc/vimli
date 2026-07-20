@@ -1,2 +1,3 @@
 # vimli
-Neovim configuration to Gimli that is lazy loaded, and clean, and modular, and easy to follow... AND MY AXE!
+Neovim configuration dedicated to Gimli that is...
+lazy loaded, and clean, and modular, and easy to follow... AND MY AXE!

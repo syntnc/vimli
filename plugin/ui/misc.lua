@@ -5,8 +5,7 @@ require("core.lazyload").on_vim_enter(function()
      { src = plug("tummetott/reticle.nvim") },
      { src = plug("folke/todo-comments.nvim") },
      { src = plug("nvim-mini/mini.hipatterns") },
-     -- TODO: activate after adding treesitter
-     -- { src = plug("kevinhwang91/nvim-bqf") },
+     { src = plug("kevinhwang91/nvim-bqf") },
    })
 
   -- configure plugin
@@ -25,5 +24,7 @@ require("core.lazyload").on_vim_enter(function()
   })
 
   require("todo-comments").setup({ signs = false })
+  require("mini.hipatterns").setup()
+  require("bqf").setup()
 
 end)

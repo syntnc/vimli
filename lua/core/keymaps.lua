@@ -4,8 +4,8 @@ local map = vim.keymap.set
 map({ "i", "x" }, "jk", "<Esc>")
 
 -- Move to the beginning and end of line
-map("n", "H", "^")
-map("n", "L", "$")
+map("n", "<leader>h", "^")
+map("n", "<leader>l", "$")
 
 -- Indent code blocks
 map("v", "<", "<gv")
@@ -47,7 +47,7 @@ map("v", "K", ":m '<-2<CR>gv=gv")
 -- Buffer navigation
 map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
-map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+map("n", "<leader>;", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
 -- Insert newline
 map("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "Add Newline Above" })

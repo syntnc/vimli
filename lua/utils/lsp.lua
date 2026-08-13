@@ -23,20 +23,29 @@ M.setup_keymaps = function(bufnr)
     vim.diagnostic.open_float()
   end, "[C]ode [D]iagnostics")
   --  To jump back, press <C-t>.
+  if vim.g.outliner == "namu" then
+    map("<leader>cs", "<Cmd>Namu symbols<CR>", "[C]ode [S]ymbols search")
+    map("<leader>ws", "<Cmd>Namu workspace<CR>", "[W]orkspace [S]ymbols")
+  end
   if vim.g.picker == "telescope" then
     map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
     map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
     map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
     map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-    map("<leader>cs", require("telescope.builtin").lsp_document_symbols, "[C]ode [S]ymbols search")
-    map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+    if vim.g.outliner ~= "namu" then
+      map("<leader>cs", require("telescope.builtin").lsp_document_symbols, "[C]ode [S]ymbols search")
+      map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+    end
   elseif vim.g.picker == "snacks" then
-    map("gd", function() Snacks.picker.lsp_definitions() end, "[G]oto [D]efinition")
-    map("gr", function() Snacks.picker.lsp_references() end, "[G]oto [R]eferences")
-    map("gI", function() Snacks.picker.lsp_implementations() end, "[G]oto [I]mplementation")
-    map("<leader>D", function() Snacks.picker.lsp_type_definitions() end, "Type [D]efinition")
-    map("<leader>cs", function() Snacks.picker.lsp_symbols() end, "[C]ode [S]ymbols search")
-    map("<leader>ws", function() Snacks.picker.lsp_workspace_symbols() end, "[W]orkspace [S]ymbols")
+    local picker = require("snacks").picker
+    map("gd", function() picker.lsp_definitions() end, "[G]oto [D]efinition")
+    map("gr", function() picker.lsp_references() end, "[G]oto [R]eferences")
+    map("gI", function() picker.lsp_implementations() end, "[G]oto [I]mplementation")
+    map("<leader>D", function() picker.lsp_type_definitions() end, "Type [D]efinition")
+    if vim.g.outliner ~= "namu" then
+      map("<leader>cs", function() picker.lsp_symbols() end, "[C]ode [S]ymbols search")
+      map("<leader>ws", function() picker.lsp_workspace_symbols() end, "[W]orkspace [S]ymbols")
+    end
   end
   map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
   map("K", vim.lsp.buf.hover, "Hover Documentation")
@@ -46,36 +55,40 @@ M.setup_keymaps = function(bufnr)
   -- stylua: ignore start
 end
 
-M.setup_highlights = function(bufnr)
+M.setup_highlights = function(client, bufnr)
   -- highlights on CursorHold (depends on vim.opt.updatetime)
-  local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
-  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-    buffer = bufnr,
-    group = highlight_augroup,
-    callback = vim.lsp.buf.document_highlight,
-  })
+  if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, buf) then
+    local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      buffer = bufnr,
+      group = highlight_augroup,
+      callback = vim.lsp.buf.document_highlight,
+    })
 
-  vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-    buffer = bufnr,
-    group = highlight_augroup,
-    callback = vim.lsp.buf.clear_references,
-  })
+    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+      buffer = bufnr,
+      group = highlight_augroup,
+      callback = vim.lsp.buf.clear_references,
+    })
 
-  vim.api.nvim_create_autocmd("LspDetach", {
-    group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
-    callback = function(lsp_event)
-      vim.lsp.buf.clear_references()
-      vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = lsp_event.buf })
-    end,
-  })
+    vim.api.nvim_create_autocmd("LspDetach", {
+      group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+      callback = function(lsp_event)
+        vim.lsp.buf.clear_references()
+        vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = lsp_event.buf })
+      end,
+    })
+  end
 end
 
-M.setup_codelens = function(bufnr)
-  vim.lsp.codelens.refresh()
-  vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-    buffer = bufnr,
-    callback = vim.lsp.codelens.refresh,
-  })
+M.setup_codelens = function(client, bufnr)
+  if client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens, bufnr) then
+    vim.lsp.codelens.refresh()
+    vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+      buffer = bufnr,
+      callback = vim.lsp.codelens.refresh,
+    })
+  end
 end
 
 return M

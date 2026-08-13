@@ -1,5 +1,15 @@
 local M = {}
 
+M.ui = {
+  edit = "󰏫 ",
+  bug = " ",
+  git_branch = "󰘬 ",
+  keyboard = "󰌌 ",
+  file = "󰈙 ",
+  open_folder = "󰝰 ",
+  bookmark = "󰃀 ",
+}
+
 M.cmp_sources = {
   buffer = "󰊄 ",
   nvim_lsp = "󰘧 ",
@@ -21,31 +31,19 @@ M.mason = {
   package_uninstalled = "✗",
 }
 
-M.ui = {
-  bookmark = " ",
-  bug = " ",
-  file = " ",
-  git_branch = "",
-  keyboard = " ",
-  open_folder = " ",
+M.statusline = {
+  lsp_info = " ",
+  tab_indicator = " ",
 }
 
-M.which_key = {
-  Code = "",
-  Debug = "",
-  Find = "",
-  Git = "",
-  Hunk = "󰅪",
-  Line = "󰞷",
-  Next = "󰒭",
-  Previous = "󰒮",
-  Refactor = "",
-  Session = "",
-  Tab = "󰓩",
-  Toggle = "󰔡",
-  UI = "󰍹",
-  Workspace = "󱒔",
-  Trouble = "",
+M.cmp = {
+  sources = {
+    buffer = "󰊄 ",
+    nvim_lsp = "󰘧 ",
+    luasnip = "󰺫 ",
+    nvim_lua = " ",
+    path = "󰙅 ",
+  },
 }
 
 return M

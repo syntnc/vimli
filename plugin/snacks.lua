@@ -3,10 +3,11 @@ vim.pack.add({
 })
 
 require("snacks").setup(require("config.snacks"))
+local map = vim.keymap.set
 
 if vim.g.picker == "snacks" then
-  local map = vim.keymap.set
   local picker = require("snacks").picker
+  --- stylua: ignore start
   map("n", "<leader>fb", function() picker.buffers() end, { desc = "Buffers" })
   map("n", "<leader>fc", function() picker.files({ cwd = vim.fn.stdpath("config") }) end, { desc = "Config File" })
   map("n", "<leader>fd", function() picker.diagnostics_buffer() end, { desc = "Diagnostics in Buffer" })
@@ -22,4 +23,7 @@ if vim.g.picker == "snacks" then
   map({ "n", "x" }, "<leader>fvw", function() picker.grep_word() end, { desc = "Visual selection or word" })
   map("n", "<leader>fw", function() picker.grep() end, { desc = "Grep" })
   map("n", "<leader>f?", function() picker.pickers() end, { desc = "All Pickers" })
+  --- stylua: ignore end
 end
+
+map("n", "<leader>gl", function() require("snacks").lazygit() end, { desc = "[L]azyGit" })

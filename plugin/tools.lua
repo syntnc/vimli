@@ -1,6 +1,6 @@
 require("core.lazyload").on_vim_enter(function()
-  -- stylua: ignore start
   vim.pack.add({
+    { src = plug("jtprogru/pack-ui.nvim") },
     { src = plug("barrettruth/canola.nvim") },
     {
       src = plug("aserowy/tmux.nvim"),
@@ -8,8 +8,8 @@ require("core.lazyload").on_vim_enter(function()
     },
     { src = plug("serhez/bento.nvim") },
   })
-  -- stylua: ignore end
 
+  require("pack_ui").setup(require("config.pack-ui"))
   require("oil").setup(require("config.oil"))
   require("tmux").setup()
   require("bento").setup(require("config.bento"))

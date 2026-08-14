@@ -46,15 +46,6 @@ end
 
 return {
   options = {
-    theme = function()
-      local auto = require("lualine.themes.auto")
-      local modes = { "inactive", "insert", "normal", "replace", "visual" }
-      -- for _, mode in ipairs(modes) do
-      --   auto[mode].b.bg = "base"
-      --   auto[mode].c.bg = "base"
-      -- end
-      return auto
-    end,
     globalstatus = true,
     icons_enabled = vim.g.icons_enabled,
     component_separators = { left = "", right = "" },

@@ -36,6 +36,7 @@ return {
     win = { style = "input" },
     expand = true,
   },
+  lazygit = { enabled = true },
   notifier = {
     enabled = true,
     timeout = 2000,

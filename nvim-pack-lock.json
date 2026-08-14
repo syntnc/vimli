@@ -5,19 +5,19 @@
       "src": "https://github.com/serhez/bento.nvim"
     },
     "blink.cmp": {
-      "rev": "9dcb1f3a9164f10c8950a790aace576f2e89dc78",
+      "rev": "bd62d0889dabd9419e35996e3ac820e8e1e7665c",
       "src": "https://github.com/Saghen/blink.cmp"
     },
     "blink.lib": {
-      "rev": "5876dd95deeb70aadbe9f1c0b7117a135061cdac",
+      "rev": "c8fdc12c8a2fab6cf786dd7141a283f8079f902b",
       "src": "https://github.com/Saghen/blink.lib"
     },
     "canola.nvim": {
-      "rev": "53b0b2d4859079eaed0ff8594703e53d28853cc6",
+      "rev": "608cd79544c3adc853d0400f1f540e4f2aa4c024",
       "src": "https://github.com/barrettruth/canola.nvim"
     },
     "cendre": {
-      "rev": "9439ff8e1b7b9af952e922bf62b3f367ea02fe26",
+      "rev": "4d0758a3e6bf0d415c5e7b8cbaaf396754213a07",
       "src": "https://github.com/Aejkatappaja/cendre"
     },
     "colorful-menu.nvim": {
@@ -25,35 +25,31 @@
       "src": "https://github.com/xzbdmw/colorful-menu.nvim"
     },
     "conform.nvim": {
-      "rev": "dca1a190aa85f9065979ef35802fb77131911106",
+      "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
     },
-    "diffview.nvim": {
-      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
-      "src": "https://github.com/sindrets/diffview.nvim"
+    "diffview": {
+      "rev": "62dc5adf4e77489a2a6d3bf36ef6e4ac5738b634",
+      "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "flash.nvim": {
-      "rev": "fcea7ff883235d9024dc41e638f164a450c14ca2",
+      "rev": "b6346946d10d07998efee029fb0f7a593806d0cd",
       "src": "https://github.com/folke/flash.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
+      "rev": "5be654f2232c10ddcad19c1607a67b6b4b78fc29",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "grug-far.nvim": {
-      "rev": "21790e59dd0109a92a70cb874dd002af186314f5",
+      "rev": "11595bf747edc270bce2069d1020502ad4ae56cf",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
     },
     "lazydev.nvim": {
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "https://github.com/folke/lazydev.nvim"
     },
-    "lazygit.nvim": {
-      "rev": "a04ad0dbc725134edbee3a5eea29290976695357",
-      "src": "https://github.com/kdheepak/lazygit.nvim"
-    },
     "lspeek.nvim": {
-      "rev": "885fc38f3ab362702b3c7822aa78caa797dfa6b8",
+      "rev": "e21f2603cb3ecc47351a07635d892c543d231a02",
       "src": "https://github.com/r4ppz/lspeek.nvim"
     },
     "lualine-so-fancy.nvim": {
@@ -73,11 +69,11 @@
       "src": "https://github.com/nvim-mini/mini.clue"
     },
     "mini.hipatterns": {
-      "rev": "9eff319bbe66adfaf781a0d0e174baa08ba94909",
+      "rev": "7c840c71d6a91f53d734cab2b6fe2290d285ec3b",
       "src": "https://github.com/nvim-mini/mini.hipatterns"
     },
     "mini.icons": {
-      "rev": "bac6317300e205335df425296570d84322730067",
+      "rev": "98faae31e9be1cc054ae63485e58ceb185efcad0",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "namu.nvim": {
@@ -89,12 +85,16 @@
       "src": "https://github.com/kevinhwang91/nvim-bqf"
     },
     "nvim-lspconfig": {
-      "rev": "31026a13eefb20681124706a79fc1df6bf11ab27",
+      "rev": "51dbf5359da86721662c87ca10eb73add973737b",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-navic": {
       "rev": "f5eba192f39b453675d115351808bd51276d9de5",
       "src": "https://github.com/SmiteshP/nvim-navic"
+    },
+    "pack-ui.nvim": {
+      "rev": "608fe1139753bc12637837c621fb8e51988a564e",
+      "src": "https://github.com/jtprogru/pack-ui.nvim"
     },
     "persistence.nvim": {
       "rev": "b20b2a7887bd39c1a356980b45e03250f3dce49c",
@@ -109,11 +109,11 @@
       "src": "https://github.com/tummetott/reticle.nvim"
     },
     "rose-pine": {
-      "rev": "6a961effd67f6130d36df6d1c05c48c739796dd2",
+      "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com/rose-pine/neovim"
     },
     "snacks.nvim": {
-      "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
+      "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "tmux.nvim": {

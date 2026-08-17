@@ -1,5 +1,5 @@
 return {
-  main_keymap = ";",
+  main_keymap = "\\",
   ui = {
     mode = "floating",
     floating = {

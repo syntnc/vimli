@@ -9,35 +9,24 @@ require("core.lazyload").on_vim_enter(function()
   })
 
   require("lazydev").setup({
-        library = {
-          vim.fn.stdpath("data") .. "/site/pack/core/opt/blink.cmp/lua",
-          vim.fn.stdpath("data") .. "/site/pack/core/opt/blink.lib/lua",
-        },
-      })
-
-  local servers = {
-    "lua_ls",
-  }
-
-  vim.lsp.enable(servers)
-
-  vim.lsp.config("lua_ls", {
-    settings = {
-      Lua = {
-        completion = { callSnippet = "Replace" },
-        diagnostics = { globals = { "vim" } },
-        workspace = {
-          checkThirdParty = false,
-          library = {
-            vim.env.VIMRUNTIME,
-            "${3rd}/luv/library",
-            vim.fn.stdpath("data") .. "/site/pack/core/opt/blink.cmp/lua",
-            vim.fn.stdpath("data") .. "/site/pack/core/opt/blink.lib/lua",
-          },
-        },
-      },
+    library = {
+      vim.fn.stdpath("data") .. "/site/pack/core/opt/blink.cmp/lua",
+      vim.fn.stdpath("data") .. "/site/pack/core/opt/blink.lib/lua",
     },
   })
+
+  local disabled_servers = {}
+
+  local servers = vim.tbl_filter(
+    function(s)
+      return not vim.tbl_contains(disabled_servers, s)
+    end,
+    vim.tbl_map(function(f)
+      return vim.fn.fnamemodify(f, ":t:r")
+    end, vim.fn.glob(vim.fn.stdpath("config") .. "/lua/lsp/*.lua", false, true))
+  )
+
+  vim.lsp.enable(servers)
 
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),

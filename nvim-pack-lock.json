@@ -5,7 +5,7 @@
       "src": "https://github.com/serhez/bento.nvim"
     },
     "blink.cmp": {
-      "rev": "bd62d0889dabd9419e35996e3ac820e8e1e7665c",
+      "rev": "e116ff9c5c1c2ed6bcdb2e0a6e547099876a8116",
       "src": "https://github.com/Saghen/blink.cmp"
     },
     "blink.lib": {
@@ -29,7 +29,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "diffview": {
-      "rev": "62dc5adf4e77489a2a6d3bf36ef6e4ac5738b634",
+      "rev": "e54dc97a584e1ae410da9d4898adb8224437ad63",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "flash.nvim": {

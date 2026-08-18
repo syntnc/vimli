@@ -11,3 +11,13 @@ require("vim._core.ui2").enable({
     pager = { height = 1 },
   },
 })
+
+-- enable opts passing
+_G.Config = {
+  conform = {},
+}
+
+function _G.Config.add(spec)
+  local merge = require("core.merge")
+  merge(_G.Config, spec)
+end

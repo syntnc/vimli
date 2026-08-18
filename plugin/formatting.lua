@@ -1,11 +1,12 @@
 require("core.lazyload").on_vim_enter(function()
-   -- add plugin
-   vim.pack.add({
-     { src = plug("stevearc/conform.nvim") },
-   })
+  -- add plugin
+  vim.pack.add({
+    { src = plug("stevearc/conform.nvim") },
+  })
 
   -- configure plugin
-  require("conform").setup({
+  local merge = require("core.merge")
+  local opts = {
     notify_on_error = false,
     format_on_save = function(bufnr)
       local disable_filetypes = {}
@@ -15,7 +16,9 @@ require("core.lazyload").on_vim_enter(function()
       }
     end,
     formatters_by_ft = {},
-  })
+  }
+  merge(opts, _G.Config.conform or {})
+  require("conform").setup(opts)
 
   -- keymaps
   vim.keymap.set("n", "<leader>cf", function()

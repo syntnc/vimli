@@ -50,6 +50,7 @@
 
               # Other packages
               lua-language-server
+              nil
               stylua
             ];
 

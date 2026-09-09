@@ -45,3 +45,5 @@ lazy-lock.json
 # Environment
 .direnv/
 .env
+lua/plugins/*
+lua/plugbak/*

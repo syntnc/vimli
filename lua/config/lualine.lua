@@ -10,10 +10,12 @@ vim.o.laststatus = vim.g.lualine_laststatus
 
 local disabled_filetypes = {
   statusline = {
+    "grug-far",
     "lazy",
     "snacks_dashboard",
     "snacks_terminal",
     "TelescopePrompt",
+    "vimpack",
   },
   winbar = {
     "",

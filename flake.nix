@@ -52,6 +52,7 @@
               lua-language-server
               nil
               stylua
+              vscode-langservers-extracted
             ];
 
             # Set any environment variables for your development environment

@@ -1,8 +1,28 @@
 local M = {}
 
+local tiny_code_action = require("tiny-code-action")
+
+M.setup_plugins = function()
+  tiny_code_action.setup({
+    picker = vim.g.picker,
+    format_title = function(action, _)
+      if action.kind then
+        return string.format("%s (%s)", action.title, action.kind)
+      end
+      return action.title
+    end,
+  })
+  require("tiny-inline-diagnostic").setup({ override_open_float = true })
+end
+
 M.setup_keymaps = function(bufnr)
   local map = function(keys, func, desc)
-    vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
+    vim.keymap.set({ "n", "x" }, keys, func, {
+      buffer = bufnr,
+      noremap = true,
+      silent = true,
+      desc = "LSP: " .. desc
+    })
   end
   local diagnostic_goto = function(next, severity)
     severity = severity and vim.diagnostic.severity[severity] or nil
@@ -47,17 +67,25 @@ M.setup_keymaps = function(bufnr)
       map("<leader>ws", function() picker.lsp_workspace_symbols() end, "[W]orkspace [S]ymbols")
     end
   end
-  map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
   map("K", vim.lsp.buf.hover, "Hover Documentation")
   -- WARN: This is not Goto Definition, this is Goto Declaration.
   --  For example, in C this would take you to the header.
   map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-  -- stylua: ignore start
+
+  -- Code Actions
+  map("<leader>ca", function() tiny_code_action.code_action({}) end, "[C]ode [A]ction")
+
+  -- Inline diagnostics
+  map("<leader>de", "<cmd>TinyInlineDiag enable<cr>", "Enable diagnostics")
+  map("<leader>dd", "<cmd>TinyInlineDiag disable<cr>", "Disable diagnostics")
+  map("<leader>dt", "<cmd>TinyInlineDiag toggle<cr>", "Toggle diagnostics")
+  map("<leader>dc", "<cmd>TinyInlineDiag toggle_cursor_only<cr>", "Toggle cursor-only diagnostics")
+  map("<leader>dr", "<cmd>TinyInlineDiag reset<cr>", "Reset diagnostic options")
 end
 
 M.setup_highlights = function(client, bufnr)
   -- highlights on CursorHold (depends on vim.opt.updatetime)
-  if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, buf) then
+  if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, bufnr) then
     local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
       buffer = bufnr,
@@ -83,11 +111,7 @@ end
 
 M.setup_codelens = function(client, bufnr)
   if client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens, bufnr) then
-    vim.lsp.codelens.refresh()
-    vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-      buffer = bufnr,
-      callback = vim.lsp.codelens.refresh,
-    })
+    vim.lsp.codelens.enable(true, { bufnr = bufnr })
   end
 end
 

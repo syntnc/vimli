@@ -4,6 +4,10 @@
       "rev": "3a944910987f552b41fce22fbb7eed0bf0a6f1eb",
       "src": "https://github.com/serhez/bento.nvim"
     },
+    "blink-ripgrep.nvim": {
+      "rev": "0e27566da4f70e61d0c0f2821bb71ae745e71364",
+      "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
+    },
     "blink.cmp": {
       "rev": "8219b58f1c11a2fb1644d3c7116c509fa8348ec0",
       "src": "https://github.com/Saghen/blink.cmp"
@@ -116,6 +120,10 @@
       "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com/rose-pine/neovim"
     },
+    "schemastore.nvim": {
+      "rev": "b73cf982d16ff69e528d2ab269482f11c0825f64",
+      "src": "https://github.com/b0o/schemastore.nvim"
+    },
     "snacks.nvim": {
       "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"
@@ -123,6 +131,14 @@
     "tiny-cmdline.nvim": {
       "rev": "d83700b48d8ff5625dbef4029af071db559544e5",
       "src": "https://github.com/rachartier/tiny-cmdline.nvim"
+    },
+    "tiny-code-action.nvim": {
+      "rev": "0d040ed81f7953118b81cd12681fcdfcac069803",
+      "src": "https://github.com/rachartier/tiny-code-action.nvim"
+    },
+    "tiny-inline-diagnostic.nvim": {
+      "rev": "6264451f14119d63a52580e5198d6baf8518b0b2",
+      "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
     },
     "tmux.nvim": {
       "rev": "32ceaf2793582955ef9576809730878c4d2d9426",

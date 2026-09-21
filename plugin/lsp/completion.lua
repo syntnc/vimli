@@ -3,6 +3,7 @@ require("core.lazyload").on_vim_enter(function()
     { src = plug("Saghen/blink.lib") },
     { src = plug("Saghen/blink.cmp") },
     { src = plug("xzbdmw/colorful-menu.nvim") },
+    { src = plug("mikavilpas/blink-ripgrep.nvim") },
   })
 
   local cmp = require("blink.cmp")

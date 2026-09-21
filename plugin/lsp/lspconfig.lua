@@ -4,7 +4,10 @@ local lsp_utils = require("utils.lsp")
 require("core.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = plug("neovim/nvim-lspconfig") },
+    { src = plug("b0o/schemastore.nvim") },
     { src = plug("artemave/workspace-diagnostics.nvim") },
+    { src = plug("rachartier/tiny-inline-diagnostic.nvim") }, -- better inline diagnostics
+    { src = plug("rachartier/tiny-code-action.nvim") },       -- better code actions
     { src = plug("folke/lazydev.nvim") },
   })
 
@@ -33,6 +36,9 @@ require("core.lazyload").on_vim_enter(function()
     callback = function(event)
       local buf = event.buf
       local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+      -- plugins
+      lsp_utils.setup_plugins()
 
       -- keymaps
       lsp_utils.setup_keymaps(buf)

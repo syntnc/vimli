@@ -37,7 +37,18 @@ return {
     documentation = { auto_show = true, window = { border = "solid" } },
   },
   signature = { enabled = true },
-  sources = { default = { "lsp", "path", "buffer" } },
+  sources = {
+    default = { "lsp", "path", "buffer", "ripgrep" },
+    providers = {
+      ripgrep = {
+        module = "blink-ripgrep",
+        name = "Ripgrep",
+        ---@module "blink-ripgrep"
+        ---@type blink-ripgrep.Options
+        opts = {},
+      }
+    }
+  },
   cmdline = {
     enabled = true,
     keymap = { preset = "cmdline" },

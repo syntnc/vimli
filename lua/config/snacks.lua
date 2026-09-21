@@ -8,6 +8,7 @@ return {
     size = 100 * 1024, -- 50 KB
   },
   bufdelete = { enabled = true },
+  dashboard = { enabled = vim.g.dashboard == "snacks" },
   git = { enabled = true },
   gitbrowse = { enabled = true },
   indent = {

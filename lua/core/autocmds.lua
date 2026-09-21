@@ -72,18 +72,32 @@ autocmd("FileType", {
   end,
 })
 
--- requires "famiu/bufdelete.nvim" and "goolord/alpha.nvim"
--- autocmd("User", {
---   desc = "Show Alpha dashboard when there is no buffer left",
---   pattern = "BDeletePost*",
---   group = augroup("alpha_on_empty"),
---   callback = function(event)
---     local fallback_name = vim.api.nvim_buf_get_name(event.buf)
---     local fallback_ft = vim.api.nvim_get_option_value(event.buf, { "filetype" })
---     local fallback_on_empty = fallback_name == "" and fallback_ft == ""
---     if fallback_on_empty then
---       vim.api.nvim_command("Alpha")
---       vim.api.nvim_command(event.buf .. "Bwipeout")
---     end
---   end,
--- })
+-- Show dashboard when no buffers are left (honors vim.g.dashboard)
+autocmd("BufDelete", {
+  group = augroup("dashboard_on_empty"),
+  desc = "Show dashboard when no buffers are left",
+  callback = function()
+    vim.schedule(function()
+      if vim.g.dashboard ~= "snacks" then
+        return
+      end
+      local current = vim.api.nvim_get_current_buf()
+      if vim.api.nvim_buf_is_valid(current) and vim.bo[current].filetype == "snacks_dashboard" then
+        return
+      end
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_valid(buf)
+          and vim.bo[buf].buflisted
+          and vim.api.nvim_buf_get_name(buf) ~= ""
+        then
+          return
+        end
+      end
+      local ok, snacks = pcall(require, "snacks")
+      if ok and snacks.dashboard then
+        snacks.dashboard.open()
+      end
+    end)
+  end,
+})
+

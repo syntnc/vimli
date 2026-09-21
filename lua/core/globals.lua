@@ -8,6 +8,7 @@ vim.g.mapleader = " "
 -- Enable icons
 vim.g.icons_enabled = true
 
+vim.g.dashboard = "snacks"
 vim.g.outliner = "namu"
 vim.g.picker = "snacks"
 

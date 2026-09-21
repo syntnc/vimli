@@ -1,3 +1,4 @@
+vim.g.starttime = vim.uv.hrtime()
 vim.loader.enable()
 require("core")
 

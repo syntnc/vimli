@@ -1,9 +1,7 @@
 local M = {}
 
-local tiny_code_action = require("tiny-code-action")
-
 M.setup_plugins = function()
-  tiny_code_action.setup({
+  require("tiny-code-action").setup({
     picker = vim.g.picker,
     format_title = function(action, _)
       if action.kind then
@@ -73,7 +71,7 @@ M.setup_keymaps = function(bufnr)
   map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
   -- Code Actions
-  map("<leader>ca", function() tiny_code_action.code_action({}) end, "[C]ode [A]ction")
+  map("<leader>ca", function() require("tiny-code-action").code_action({}) end, "[C]ode [A]ction")
 
   -- Inline diagnostics
   map("<leader>de", "<cmd>TinyInlineDiag enable<cr>", "Enable diagnostics")

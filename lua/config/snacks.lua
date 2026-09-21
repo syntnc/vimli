@@ -8,7 +8,86 @@ return {
     size = 100 * 1024, -- 50 KB
   },
   bufdelete = { enabled = true },
-  dashboard = { enabled = vim.g.dashboard == "snacks" },
+  dashboard = {
+    enabled = vim.g.dashboard == "snacks",
+    -- Layout ported from nvim-pure. The `{ section = "startup" }` entry
+    -- there does `require("lazy.stats")`; vimli uses vim.pack instead,
+    -- so the footer is a vim.pack-aware function (same shape/position).
+    preset = {
+      header = [[
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣶⣶⠶⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⢔⣢⣿⣷⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣼⣾⣿⣿⣿⣿⣿⣿⣉⣿⣿⠇⠀⣀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⡄⠾⠉⠉⢯⣿⣿⣦⣾⣥⣾⣿⣿⣷⣾⣿⣿⠇⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠈⠻⠿⣯⣿⣿⣿⣿⣿⣿⣿⣉⡀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣾⣿⣿⣿⣿⡿⢿⣿⢿⣿⣿⡀⠀⢀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣴⣶⣿⠿⠛⠋⠁⢰⣾⣿⠛⣻⣿⣷⣾⣿⣿⣷⡾⠟
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡤⣶⣿⠿⠟⠋⠉⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⠟⠋⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣶⣿⡿⠿⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣿⣿⣿⡿⠿⠛⠉⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣶⣾⣿⠿⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠚⠛⠛⠛⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣴⣾⣿⠿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡴⣖⣻⡿⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢀⣠⠤⠲⣏⡩⠶⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⢀⣀⠤⢲⣫⡡⠷⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⢸⣹⠣⠐⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠰⣾⣷⠀⠀⠀⠀⠀ ⠀⢠⣶⣿⡆ ⠀⣾⣶⡄⠀⠀⠀⠀⠀⣶⣿⠆  ⠀⣶⣿⡇⠀⠀⠀⠀ ⠀⢠⣶⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⣧⡀⠀⠀⠀ ⠀⠈⣿⣿⠀ ⠀⠀⣿⡿⣷⡄⠀⢠⠾⣿⠁⠀  ⠀⠈⣿⠻⣦⡀⠀⠀ ⠀⠈⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⡇⠙⠻⣶⣤⣀ ⠀⠀⢿⣇⠀ ⠀⠀⢻⡇⠈⢻⣾⣅⠀⣿⠀⠀  ⠀⢀⣿⠀⠈⢻⣶⡤ ⠀⠀⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠘⣿⠃ ⠀⠀⢸⣿⠀ ⠀⠀⢸⣇⡰⠋⠈⠻⣿⣿⠀⠀  ⠀⢀⣿⠀⠀⠀⠉⠀ ⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⣿⡀ ⠀⠀⢸⣿⠀ ⠀⠀⢸⡟⠀⠀⠀⠀⠈⣿⠀⠀  ⠀⠘⣯⠀⠀⠀⠀⠀ ⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⢀⣿⡇ ⠀⠀⣼⣿⠀ ⠀⠀⣼⡇⠀⠀⠀⠀⠀⣿⡄⠀  ⠀⠀⣿⠀⠀⠀⠀⠀ ⠀⠀⣼⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠰⠿⠟⠀⠀⠘⣿⡗ ⠀⠰⠿⠟  ⠀⢲⡟⠁⠀⠀⠀⠀⠸⠟⠃⠀  ⠰⢾⢿⡷⠀⠀⠀⠀ ⠀⠴⠿⠟ ⠀⠀⠀⠀⠀⠀⠀⠀
+]],
+    },
+    sections = {
+      { section = "header" },
+      {
+        pane = 2,
+        {
+          icon = "",
+          title = "Keymaps",
+          section = "keys",
+          indent = 2,
+          padding = 1,
+        },
+        {
+          icon = "",
+          title = "Recent Files",
+          section = "recent_files",
+          indent = 2,
+          padding = 1,
+        },
+        {
+          icon = "",
+          title = "Projects",
+          section = "projects",
+          indent = 2,
+          padding = 1,
+        },
+        function()
+          local plugins = vim.pack.get()
+          local loaded = 0
+          for _, p in ipairs(plugins) do
+            if p.active then
+              loaded = loaded + 1
+            end
+          end
+          local start = vim.g.starttime or vim.uv.hrtime()
+          local ms = math.floor((vim.uv.hrtime() - start) / 1e4 + 0.5) / 100
+          return {
+            align = "center",
+            text = {
+              { "⚡ Neovim loaded ", hl = "footer" },
+              { loaded .. "/" .. #plugins, hl = "special" },
+              { " plugins in ", hl = "footer" },
+              { ms .. "ms", hl = "special" },
+            },
+          }
+        end,
+      },
+    },
+  },
   git = { enabled = true },
   gitbrowse = { enabled = true },
   indent = {

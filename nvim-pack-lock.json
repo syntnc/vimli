@@ -33,7 +33,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "diffview": {
-      "rev": "c0a00386bd99d2abd27c8c8af9cfdd9374c2b3ed",
+      "rev": "5152bada7d81cd602373e77534aabc631419e8e0",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "flash.nvim": {
@@ -121,7 +121,7 @@
       "src": "https://github.com/rose-pine/neovim"
     },
     "schemastore.nvim": {
-      "rev": "b73cf982d16ff69e528d2ab269482f11c0825f64",
+      "rev": "be687d17e4a9443e918c48c3c915b1f2ffd0f718",
       "src": "https://github.com/b0o/schemastore.nvim"
     },
     "snacks.nvim": {

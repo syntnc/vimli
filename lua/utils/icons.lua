@@ -10,14 +10,6 @@ M.ui = {
   bookmark = "󰃀 ",
 }
 
-M.cmp_sources = {
-  buffer = "󰊄 ",
-  nvim_lsp = "󰘧 ",
-  luasnip = "󰺫 ",
-  nvim_lua = " ",
-  path = "󰙅 ",
-}
-
 M.diagnostics = {
   Error = " ",
   Warn = " ",

@@ -1,6 +1,6 @@
-vim.pack.add({ { src = plug("lewis6991/gitsigns.nvim") } })
 require("core.lazyload").on_vim_enter(function()
   vim.pack.add({
+    { src = plug("lewis6991/gitsigns.nvim") },
     { src = plug("nvim-lua/plenary.nvim") },
     { src = plug("dlyongemallo/diffview-plus.nvim"), name = "diffview" },
     -- NOTE: the following needs telescope

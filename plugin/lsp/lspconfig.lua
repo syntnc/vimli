@@ -31,16 +31,30 @@ require("core.lazyload").on_vim_enter(function()
 
   vim.lsp.enable(servers)
 
+  local did_global_setup = false
+
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
     callback = function(event)
       local buf = event.buf
       local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-      -- plugins
-      lsp_utils.setup_plugins()
+      -- Global (once): plugin setup, diagnostic style + signs.
+      if not did_global_setup then
+        did_global_setup = true
+        lsp_utils.setup_plugins()
 
-      -- keymaps
+        vim.diagnostic.config({
+          virtual_text = false,
+          float = { source = true, severity_sort = true, border = "solid" },
+        })
+        for type, icon in pairs(icons.diagnostics) do
+          local hl = "DiagnosticSign" .. type
+          vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+        end
+      end
+
+      -- Per-buffer keymaps
       lsp_utils.setup_keymaps(buf)
 
       if client then
@@ -69,17 +83,6 @@ require("core.lazyload").on_vim_enter(function()
         -- Inline color swatches
         if client:supports_method("textDocument/documentColor", buf) then
           vim.lsp.document_color.enable(true, { bufnr = buf })
-        end
-
-        -- Diagnostics
-        local diagnostics_opts = {
-          virtual_text = false,
-          float = { source = true, severity_sort = true, border = "solid" },
-        }
-        vim.diagnostic.config(vim.deepcopy(diagnostics_opts))
-        for type, icon in pairs(icons.diagnostics) do
-          local hl = "DiagnosticSign" .. type
-          vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
       end
     end,

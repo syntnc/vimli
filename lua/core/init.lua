@@ -5,6 +5,7 @@ require("core.options")
 -- Load mappings and autocmds
 require("core.autocmds")
 require("core.keymaps")
+require("core.hooks")
 
 vim.env.NEOVIM_NODE_VERSION = "v18.16.0"
 

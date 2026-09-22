@@ -1,4 +1,4 @@
-require("core.lazyload").on_vim_enter(function()
+require("core.lazyload").on_event("BufReadPost", function()
   vim.pack.add({
     { src = plug("MagicDuck/grug-far.nvim") },
   })

@@ -1,4 +1,4 @@
-require("core.lazyload").on_vim_enter(function()
+require("core.lazyload").on_event("BufReadPost", function()
   vim.pack.add({
     { src = plug("lewis6991/gitsigns.nvim") },
     { src = plug("nvim-lua/plenary.nvim") },

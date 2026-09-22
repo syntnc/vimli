@@ -66,7 +66,7 @@ return {
           padding = 1,
         },
         function()
-          local plugins = vim.pack.get()
+          local plugins = vim.pack.get(nil, { info = false })
           local loaded = 0
           for _, p in ipairs(plugins) do
             if p.active then

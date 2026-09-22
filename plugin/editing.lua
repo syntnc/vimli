@@ -1,4 +1,7 @@
-require("core.lazyload").on_vim_enter(function()
+local loaded = false
+local function load()
+  if loaded then return end
+  loaded = true
   -- add plugin
   vim.pack.add({
     { src = plug("altermo/ultimate-autopair.nvim") },
@@ -29,4 +32,6 @@ require("core.lazyload").on_vim_enter(function()
 
   -- Make special mapping for "add surrounding for line"
   vim.keymap.set('n', 'yss', 'ys_', { remap = true })
-end)
+end
+
+require("core.lazyload").on_event({ "BufReadPost", "InsertEnter" }, load)

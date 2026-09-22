@@ -1,4 +1,4 @@
-require("core.lazyload").on_vim_enter(function()
+require("core.lazyload").on_event("LspAttach", function()
   vim.pack.add({
     { src = plug("r4ppz/lspeek.nvim") },     -- peek definitions
     { src = plug("bassamsdata/namu.nvim") }, -- outline

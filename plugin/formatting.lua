@@ -1,4 +1,4 @@
-require("core.lazyload").on_vim_enter(function()
+require("core.lazyload").on_event("BufReadPost", function()
   -- add plugin
   vim.pack.add({
     { src = plug("stevearc/conform.nvim") },

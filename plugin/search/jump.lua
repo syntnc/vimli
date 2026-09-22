@@ -1,4 +1,4 @@
-require("core.lazyload").on_vim_enter(function()
+require("core.lazyload").on_event({ "BufReadPost", "BufNewFile" }, function()
    -- add plugin
    vim.pack.add({
      { src = plug("folke/flash.nvim") },

@@ -1,20 +1,6 @@
 local M = {}
 
-local vim_enter_queue = {}
 local override_queue = {}
-
-local function drain(queue)
-  for _, entry in ipairs(queue) do
-    if not entry.sync then
-      vim.schedule(entry.fn)
-    end
-  end
-  for _, entry in ipairs(queue) do
-    if entry.sync then
-      entry.fn()
-    end
-  end
-end
 
 local function drain_override()
   if not override_queue then return end
@@ -31,23 +17,8 @@ end
 
 vim.api.nvim_create_autocmd("VimEnter", {
   once = true,
-  callback = function()
-    drain(vim_enter_queue)
-    vim_enter_queue = nil
-    drain_override()
-  end,
+  callback = drain_override,
 })
-
-function M.on_vim_enter(fn, opts)
-  local sync = opts and opts.sync or false
-  if vim_enter_queue then
-    table.insert(vim_enter_queue, { fn = fn, sync = sync })
-  elseif sync then
-    fn()
-  else
-    vim.schedule(fn)
-  end
-end
 
 function M.on_override(fn)
   if override_queue then
@@ -55,6 +26,18 @@ function M.on_override(fn)
   else
     vim.schedule(fn)
   end
+end
+
+---@param events string|string[] autocmd event(s), e.g. "BufReadPost"
+---@param fn fun() loader: `vim.pack.add()` + `setup()` + keymaps
+---@param pattern? string|string[] autocmd pattern, e.g. `"python"`
+function M.on_event(events, fn, pattern)
+  local ev = type(events) == "table" and table.concat(events, ",") or events
+  if pattern ~= nil then
+    local pat = type(pattern) == "table" and table.concat(pattern, ",") or pattern
+    ev = ev .. "~" .. pat
+  end
+  require("mini.misc").safely("event:" .. ev, fn)
 end
 
 return M

@@ -1,4 +1,4 @@
-require("core.lazyload").on_event({ "BufReadPre", "BufNewFile" }, function()
+require("core.lazyload").on_event({ "BufReadPre", "BufNewFile", "SessionLoadPre" }, function()
   vim.pack.add({
     { src = plug("romus204/tree-sitter-manager.nvim") },
     { src = plug("Wansmer/treesj") },

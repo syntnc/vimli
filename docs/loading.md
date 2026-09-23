@@ -30,6 +30,12 @@ active before any `plugin/` file is sourced.
 
 ## Ordering contracts
 
+- Session restores (`:restart`, persistence `load()`) fire
+  `SessionLoadPre` before any buffer is read, so `BufReadPre`-gated
+  loaders also listen there. On restart-born servers a loader running
+  inside the first restored read can leave that buffer without a
+  filetype (and therefore without LSP), silently and with no error.
+
 - `BufReadPre` runs before `FileType`/LSP-start for the same buffer, so
   `vim.lsp.enable()` and the `LspAttach` handler are always registered
   in time.
@@ -77,3 +83,12 @@ first and diffview requires it at setup).
 - `mini.icons` mocks the `nvim-web-devicons` API because lualine's
   `filetype` component only knows that interface; without the mock the
   filetype renders as a bare string.
+
+## Session restores
+
+- A session restore can leave a loaded file buffer with no attached
+  client and no error (the `edit`-reload path detaches mid-start and
+  nothing retries it). `plugin/lsp/lspconfig.lua` therefore re-runs
+  activation on `SessionLoadPost`, scoped to loaded file buffers with
+  zero clients, firing only the `nvim.lsp.enable` group so ftplugins
+  and treesitter are untouched.

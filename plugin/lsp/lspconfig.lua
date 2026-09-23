@@ -1,7 +1,7 @@
 local icons = require("utils.icons")
 local lsp_utils = require("utils.lsp")
 
-require("core.lazyload").on_event({ "BufReadPre", "BufNewFile" }, function()
+require("core.lazyload").on_event({ "BufReadPre", "BufNewFile", "SessionLoadPre" }, function()
   vim.pack.add({
     { src = plug("neovim/nvim-lspconfig") },
     { src = plug("b0o/schemastore.nvim") },

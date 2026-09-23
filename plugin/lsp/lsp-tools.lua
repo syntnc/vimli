@@ -8,6 +8,8 @@ require("core.lazyload").on_event("LspAttach", function()
   require("namu").setup()
 
   -- keymaps
+  vim.keymap.set("n", "<leader>uo", "<cmd>Namu symbols<CR>", { desc = "Toggle [O]utline Picker" })
+  vim.keymap.set("n", "<leader>uw", "<cmd>Namu workspace<CR>", { desc = "Toggle [W]orkspace outline" })
   vim.keymap.set("n", "gpd", function()
     require("lspeek").peek_type_definition()
   end, { desc = "Peek Type Definition (lspeek)" })

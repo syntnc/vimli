@@ -2,7 +2,7 @@ local M = {}
 
 ---@param tbl table
 ---@param f function
----@param keep_keys boolean
+---@param keep_keys? boolean
 ---@return table
 function M.filter(tbl, f, keep_keys)
   if not tbl or tbl == {} then

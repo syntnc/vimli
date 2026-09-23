@@ -11,5 +11,13 @@ vim.pack.add({
   { src = plug("meuter/lualine-so-fancy.nvim") },
 })
 
+vim.api.nvim_set_hl(0, "WinBarActiveFilename", { fg = "#89b4fa", bold = true })
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = vim.api.nvim_create_augroup("winbar-hl", { clear = true }),
+  callback = function()
+    vim.api.nvim_set_hl(0, "WinBarActiveFilename", { fg = "#89b4fa", bold = true })
+  end,
+})
+
 require("lualine").setup(require("config.lualine"))
 -- require("lualine").setup()

@@ -7,5 +7,5 @@ require("core.lazyload").on_event({ "InsertEnter", "CmdlineEnter" }, function()
   })
 
   require("blink.cmp").setup(require("config.blink"))
-  require("colorful-menu").setup()
+  require("colorful-menu").setup({})
 end)

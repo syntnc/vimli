@@ -87,4 +87,27 @@ require("core.lazyload").on_event({ "BufReadPre", "BufNewFile" }, function()
       end
     end,
   })
+
+  -- Session restores can leave a loaded file buffer with no client and no
+  -- error; re-run activation for exactly those buffers once restore ends.
+  vim.api.nvim_create_autocmd("SessionLoadPost", {
+    group = vim.api.nvim_create_augroup("lsp-session-restore", { clear = true }),
+    callback = function()
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if
+          vim.api.nvim_buf_is_valid(buf)
+          and vim.api.nvim_buf_is_loaded(buf)
+          and (vim.bo[buf].buftype == "" or vim.bo[buf].buftype == "help")
+          and vim.bo[buf].filetype ~= ""
+          and #vim.lsp.get_clients({ bufnr = buf }) == 0
+        then
+          vim.api.nvim_exec_autocmds("FileType", {
+            buffer = buf,
+            group = "nvim.lsp.enable",
+            modeline = false,
+          })
+        end
+      end
+    end,
+  })
 end)

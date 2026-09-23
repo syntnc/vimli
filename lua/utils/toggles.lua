@@ -12,7 +12,6 @@ end
 -- quickfix: toggle qflist
 function M.qflist()
   -- open if no windows with type quickfix in current tabpage
-  print("Processing command")
   if vim.tbl_isempty(get_visible_qflists()) then
     vim.cmd([[ horizontal copen ]])
   else
